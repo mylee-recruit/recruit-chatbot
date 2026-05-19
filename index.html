@@ -223,8 +223,7 @@
 </div>
 
 <script>
-  // ★ 3단계에서 복사한 Google Apps Script URL을 여기에 붙여넣으세요
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmjOt0NE29cHSfKfuG878LZ26codPKbfbJmNq6XYi7wzGzFMzME_4LyLwXzMhoTQf1qg/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxmJKhjATJ3uWAWSnPtEqyajmh3-BgPzhK-2e4PxUOUOon8TmxrNm7MuukdRp1UGH6Lzg/exec';
 
   const messagesEl = document.getElementById('messages');
   const inputEl = document.getElementById('userInput');
@@ -266,11 +265,8 @@
     addTyping();
 
     try {
-      const res = await fetch(SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: text })
-      });
+      const url = SCRIPT_URL + '?question=' + encodeURIComponent(text);
+      const res = await fetch(url, { method: 'GET' });
       const data = await res.json();
       removeTyping();
       addMessage(data.answer || '답변을 가져오지 못했어요. 다시 시도해주세요.', 'bot');
